@@ -7,7 +7,7 @@ session_start();
 if(isset($_REQUEST['request_id']) && !empty($_REQUEST['request_id'])){
     $request_id =   $_REQUEST['request_id'] ;
     $sql_employee = "SELECT * FROM `request` WHERE `id`=".$request_id;
-    $result = $conn->query($sql_employee);
+    $result = $connection->query($sql_employee);
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             $service_id= $row["service_id"];
@@ -35,11 +35,10 @@ if(isset($_REQUEST['request_id']) && !empty($_REQUEST['request_id'])){
         }
 }
 $sql_services = "SELECT * FROM `service` ";
-$services = $conn->query($sql_services);
+$services = $connection->query($sql_services);
 $service_options="";
 if ($services->num_rows > 0) {
         while($row = $services->fetch_assoc()) {
-            echo $service_id ."<br/>";
             $service_options = $service_options. '<option style="color:black !important" '.($service_id==$row["id"]?'selected="selected"':"").' value="'.$row["id"].'">'.$row["type"].'</option>';
           }
         }

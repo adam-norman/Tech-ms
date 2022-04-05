@@ -28,7 +28,7 @@ if(isset($_SESSION['employee_id']) && !empty($_SESSION['employee_id'])) {
       $attachment2=$_POST['attachmentFile2'];
     }
     $updateStr ="UPDATE  `request` SET `service_id`=".$service_id.", `description`='".$description."' ,`attachment1`='".$attachment1."', `attachment2`='".$attachment2."' WHERE `id`=".$id;
-    $response= mysqli_query($conn,$updateStr);
+    $response= mysqli_query($connection,$updateStr);
     $_SESSION['request_id']=$id;
     header("Location: Request-info.php");
   }

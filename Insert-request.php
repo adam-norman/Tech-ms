@@ -27,8 +27,8 @@ if(isset($_SESSION['employee_id']) && !empty($_SESSION['employee_id'])) {
 
     $insertStr ="INSERT INTO `request` (`emp_id`, `service_id`, `description`, `attachment1`, `attachment2`, `status`)
     VALUES (".$emp_id.", ".$service_id.", '".$description."', '".$attachment1."', '".$attachment2."', '".$status."')";
-    $response= mysqli_query($conn,$insertStr);
-    $request_id= mysqli_insert_id($conn);
+    $response= mysqli_query($connection,$insertStr);
+    $request_id= mysqli_insert_id($connection);
     $_SESSION['request_id']=$request_id;
     header("Location: Request-info.php");
   }

@@ -1,7 +1,7 @@
 <?php
 session_start();
 /*session is started if you don't write this line can't use $_Session  global variable*/
-$_SESSION["employee_id"]=1;
+$_SESSION["employee_id"]=132622;
 ?>
 <!DOCTYPE html>
 <html>

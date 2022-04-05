@@ -6,7 +6,7 @@ session_start();
 if(isset($_SESSION['employee_id']) && !empty($_SESSION['employee_id'])) {
     $emp_id=$_SESSION['employee_id'];
     $sql_employee = "SELECT `id`, `emp_number`, `first_name`, `last_name`, `job_title`, `password` FROM `employee` WHERE `id`=" . $emp_id;
-    $result = $conn->query($sql_employee);
+    $result = $connection->query($sql_employee);
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             $emp_name= $row["first_name"]. " " . $row["last_name"];
@@ -17,10 +17,10 @@ if(isset($_SESSION['employee_id']) && !empty($_SESSION['employee_id'])) {
           if(isset($emp_id)){
             $sql_employee_requests_in_progress = "SELECT `request`.`id`, `service`.`type` as `service_type`,`description`,`status` FROM `request` 
             INNER JOIN    `service`
-            on `request`.`service_id`=`service`.`id` WHERE  `status` = 'In Progress' AND `emp_id`=" . $emp_id;
+            on `request`.`service_id`=`service`.`id` WHERE  LOWER(`status`) = 'in progress' AND `emp_id`=" . $emp_id;
              $sql_employee_requests_previous = "SELECT `request`.`id`, `service`.`type` as `service_type`,`description`,`status` FROM `request` 
              INNER JOIN    `service`
-             on `request`.`service_id`=`service`.`id` WHERE `status` <> 'In Progress' AND  `emp_id`=" . $emp_id;
+             on `request`.`service_id`=`service`.`id` WHERE LOWER(`status`) <> 'in progress' AND  `emp_id`=" . $emp_id;
           }
     }
 
@@ -64,7 +64,7 @@ if(isset($_SESSION['employee_id']) && !empty($_SESSION['employee_id'])) {
                     <th  style="background: #263d4b;" colspan="4">In Progress</th>
                 </tr>
 <?php
-                $requests = $conn->query($sql_employee_requests_in_progress);
+                $requests = $connection->query($sql_employee_requests_in_progress);
                 if ($requests->num_rows > 0) {
                     while($row = $requests->fetch_assoc()) {
                             echo '<tr>';
@@ -84,7 +84,7 @@ if(isset($_SESSION['employee_id']) && !empty($_SESSION['employee_id'])) {
                     <th></th>
                 </tr>
 <?php
-                $requests = $conn->query($sql_employee_requests_previous);
+                $requests = $connection->query($sql_employee_requests_previous);
                 if ($requests->num_rows > 0) {
                     while($row = $requests->fetch_assoc()) {
                             echo '<tr>';

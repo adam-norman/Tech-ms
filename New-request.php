@@ -1,3 +1,6 @@
+
+
+
 <html>
  <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,10 +32,22 @@
                 <div class="select"  > 
                 <label for="serviceType">Service Type</label>
                 <select id="serviceType" name="serviceType" style="color:black">
-                  <option value="11" style="color:black">Promotion</option>
-                  <option value="2" style="color:black">Allowance</option>
-                  <option value="3" style="color:black">Leave</option>
-                  <option value="4" style="color:black">Health insurance</option>
+                    
+                    <?php include 'database/connection.php' ?>
+
+<?php
+    $sql_services = "SELECT * FROM `service` ";
+$services = $connection->query($sql_services);
+$service_options="";
+if ($services->num_rows > 0) {
+        while($row = $services->fetch_assoc()) {
+            $service_options = $service_options. '<option style="color:black !important" value="'.$row["id"].'">'.$row["type"].'</option>';
+          }
+        }
+?>
+                  <?php
+                 echo $service_options;
+                  ?>
                 </select>
               </div>
               <br>
